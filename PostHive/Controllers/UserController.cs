@@ -39,7 +39,7 @@ namespace PostHive.Controllers
         {
             var user = new User(userModel.Id, userModel.Name);
             _db.Users.Add(user);
-            _db.SaveChangesAsync();
+            _db.SaveChanges();
             return Ok(user);
         }
 

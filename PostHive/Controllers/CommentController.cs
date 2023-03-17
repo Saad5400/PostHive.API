@@ -8,44 +8,47 @@ namespace PostHive.Controllers
 {
     [Route("[controller]")]
     [ApiController]
-    public class PostController : ControllerBase
+    public class CommentController : ControllerBase
     {
         private readonly AppDbContext _db;
-        public PostController(AppDbContext db)
+
+        public CommentController(AppDbContext db)
         {
             _db = db;
         }
-        // GET: <PostController>
+        // GET: <CommentController>
         [HttpGet]
         public IActionResult Get()
         {
-            return Ok(_db.Posts);
+            return Ok(_db.Comments);
         }
 
-        // GET <PostController>/5
+        // GET <CommentController>/5
         [HttpGet("{id}")]
         public IActionResult Get(int id)
         {
-            return Ok(_db.Posts.Find(id));
+            return Ok(_db.Comments.Find(id));
         }
 
-        // POST <PostController>
+        // POST <CommentController>
         [HttpPost]
-        public IActionResult Post([FromBody] PostPostModel model)
+        public IActionResult Post([FromBody] CommentPostModel model)
         {
-            var post = new Post(model.Title, model.Content, model.AuthorId);
-            _db.Posts.Add(post);
+            var comment = model.RepliedToCommentId is null or 0 
+                ? new Comment(model.Content, model.AuthorId, model.PostId) 
+                : new Comment(model.Content, model.AuthorId, model.PostId, model.RepliedToCommentId);
+            _db.Comments.Add(comment);
             _db.SaveChanges();
-            return Ok(post);
+            return Ok(comment);
         }
 
-        // // PUT <PostController>/5
+        // // PUT <CommentController>/5
         // [HttpPut("{id}")]
         // public void Put(int id, [FromBody] string value)
         // {
         // }
         //
-        // // DELETE <PostController>/5
+        // // DELETE <CommentController>/5
         // [HttpDelete("{id}")]
         // public void Delete(int id)
         // {

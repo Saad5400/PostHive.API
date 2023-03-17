@@ -5,6 +5,14 @@ using Microsoft.EntityFrameworkCore.Migrations;
 
 namespace PostHive.Model
 {
+    public class CommentPostModel
+    {
+        public string Content { get; set; }
+        public string AuthorId { get; set; }
+        public int PostId { get; set; }
+        public int? RepliedToCommentId { get; set; }
+
+    }
     public class Comment
     {
         [Key]
@@ -30,5 +38,13 @@ namespace PostHive.Model
         public Comment? RepliedToComment { get; set; }
 
         public List<Comment>? Replies { get; set; }
+
+        public Comment(string content, string authorId, int postId, int? repliedToCommentId = null)
+        {
+            Content = content;
+            AuthorId = authorId;
+            PostId = postId;
+            RepliedToCommentId = repliedToCommentId;
+        }
     }
 }
