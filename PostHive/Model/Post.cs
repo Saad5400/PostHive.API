@@ -6,8 +6,13 @@ namespace PostHive.Model
 {
     public class PostPostModel
     {
+        [Required]
         public string Title { get; set; }
+
+        [Required]
         public string Content { get; set; }
+
+        [Required]
         public string AuthorId { get; set; }
 
     }
@@ -26,11 +31,12 @@ namespace PostHive.Model
 
         public string? AuthorId { get; set; }
         [ForeignKey("AuthorId")]
-        [ValidateNever]
         public User? Author { get; set; }
 
-        [ValidateNever] 
         public List<Comment> Comments { get; set; } = new();
+
+        public List<User> UpvotedBy { get; set; } = new();
+        public List<User> DownvotedBy { get; set; } = new();
 
         public Post(string title, string content, string authorId)
         {

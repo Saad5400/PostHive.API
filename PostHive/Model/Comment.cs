@@ -7,8 +7,13 @@ namespace PostHive.Model
 {
     public class CommentPostModel
     {
+        [Required]
         public string Content { get; set; }
+
+        [Required]
         public string AuthorId { get; set; }
+
+        [Required]
         public int PostId { get; set; }
         public int? RepliedToCommentId { get; set; }
 
@@ -23,21 +28,21 @@ namespace PostHive.Model
 
         public string? AuthorId { get; set; }
         [ForeignKey("AuthorId")]
-        [ValidateNever]
         public User? Author { get; set; }
 
         [Required]
         public int PostId { get; set; }
         [ForeignKey("PostId")]
-        [ValidateNever]
         public Post? Post { get; set; }
 
         public int? RepliedToCommentId { get; set; }
         [ForeignKey("RepliedToCommentId")]
-        [ValidateNever]
         public Comment? RepliedToComment { get; set; }
 
         public List<Comment>? Replies { get; set; }
+
+        public List<User> UpvotedBy { get; set; } = new();
+        public List<User> DownvotedBy { get; set; } = new();
 
         public Comment(string content, string authorId, int postId, int? repliedToCommentId = null)
         {

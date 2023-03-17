@@ -5,7 +5,10 @@ namespace PostHive.Model
 {
     public class UserPostModel
     {
+        [Required]
         public string Id { get; set; }
+
+        [Required]
         public string Name { get; set; }
 
     }
@@ -17,17 +20,15 @@ namespace PostHive.Model
         [Required]
         public string Name { get; set; }
 
-        [ValidateNever] 
         public List<Comment> Comments { get; set; } = new();
 
-        [ValidateNever]
         public List<Post> Posts { get; set; } = new();
 
-        public List<int> UpvotedPostsIds = new();
-        public List<int> DownvotedPostsIds = new();
+        public List<Post>? UpvotedPosts { get; set; } = new();
+        public List<Post>? DownvotedPosts { get; set; } = new();
 
-        public List<int> UpvotedCommentsIds = new();
-        public List<int> DownvotedCommentsIds = new();
+        public List<Comment>? UpvotedComments { get; set; } = new();
+        public List<Comment>? DownvotedComments { get; set; } = new();
 
         public User(string id, string name)
         {
