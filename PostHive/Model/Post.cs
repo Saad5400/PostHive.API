@@ -15,15 +15,14 @@ namespace PostHive.Model
         [Required]
         public string Content { get; set; }
 
-        public int Score { get; set; }
+        public int Score { get; set; } = 0;
 
-        [Required]
-        public string AuthorId { get; set; }
+        public string? AuthorId { get; set; }
         [ForeignKey("AuthorId")]
         [ValidateNever]
-        public User Author { get; set; }
+        public User? Author { get; set; }
 
-        [ValidateNever]
-        public List<Comment> Comments { get; set; }
+        [ValidateNever] 
+        public List<Comment> Comments { get; set; } = new();
     }
 }
