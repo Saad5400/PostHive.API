@@ -4,6 +4,13 @@ using Microsoft.AspNetCore.Mvc.ModelBinding.Validation;
 
 namespace PostHive.Model
 {
+    public class PostPostModel
+    {
+        public string Title { get; set; }
+        public string Content { get; set; }
+        public string AuthorId { get; set; }
+
+    }
     public class Post
     {
         [Key]
@@ -24,5 +31,12 @@ namespace PostHive.Model
 
         [ValidateNever] 
         public List<Comment> Comments { get; set; } = new();
+
+        public Post(string title, string content, string authorId)
+        {
+            Title = title;
+            Content = content;
+            AuthorId = authorId;
+        }
     }
 }
